@@ -3,6 +3,8 @@ import { createGlobalStyle } from "styled-components";
 const GlobalStyle = createGlobalStyle`
     :root{
         --fontStack : 'Lato', sans-serif;
+        --primaryColor : rgb(238, 96, 85);
+        --borderRadius : 3px;
       }
 
     * {
@@ -36,8 +38,10 @@ const GlobalStyle = createGlobalStyle`
 
 
 button {
+  display: inline-block;
   font-family: var(---fontStack);
     border : none;
+    background-color: transparent;
     &:hover{
         cursor: pointer;
     }
