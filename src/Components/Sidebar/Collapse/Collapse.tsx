@@ -12,7 +12,7 @@ const Collapse: React.FC = () => {
   return (
     <Container>
       <CollapseAction onToggle={toggleCollapse} isCollapsed={isCollapsed} />
-      <CollapseContent />
+      <CollapseContent isCollapsed={isCollapsed} />
     </Container>
   );
 };
