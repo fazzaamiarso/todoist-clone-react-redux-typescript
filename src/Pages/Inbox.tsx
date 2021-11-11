@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import MainContent from "../Components/Main/MainContent";
 
 const Inbox: React.FC = () => {

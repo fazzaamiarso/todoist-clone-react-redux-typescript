@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import HeadBar from "./HeadBar";
 import NewTaskSection from "./NewTaskSection";
+import TaskList from "./TaskList";
 
 interface Props {
   children: JSX.Element;
@@ -11,6 +12,7 @@ const MainContent: React.FC<Props> = ({ children }) => {
     <>
       <Container>
         <HeadBar />
+        <TaskList />
         <NewTaskSection />
         {children}
       </Container>
