@@ -41,6 +41,7 @@ const Header: React.FC<Props> = ({ onToggle }) => {
 
 const Container = styled.header`
   position: fixed;
+  z-index: 20;
   width: 100vw;
   display: flex;
   align-items: center;
