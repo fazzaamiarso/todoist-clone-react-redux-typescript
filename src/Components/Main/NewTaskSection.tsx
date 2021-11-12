@@ -2,10 +2,14 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-const NewTaskSection: React.FC = () => {
+interface Props {
+  onToggle: () => void;
+}
+
+const NewTaskSection: React.FC<Props> = ({ onToggle }) => {
   return (
     <Container>
-      <AddButton>
+      <AddButton onClick={onToggle}>
         <FontAwesomeIcon icon={faPlus} className="icon" />
         <span>Add Task</span>
       </AddButton>

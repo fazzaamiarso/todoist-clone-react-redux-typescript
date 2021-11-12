@@ -1,4 +1,6 @@
+import { useState } from "react";
 import styled from "styled-components";
+import TaskForm from "../Forms/TaskForm";
 import HeadBar from "./HeadBar";
 import NewTaskSection from "./NewTaskSection";
 import TaskList from "./TaskList";
@@ -8,12 +10,21 @@ interface Props {
 }
 
 const MainContent: React.FC<Props> = ({ children }) => {
+  const [isInputting, setIsInputting] = useState(false);
+  const toggleInput = () => {
+    setIsInputting(!isInputting);
+  };
+
   return (
     <>
       <Container>
         <HeadBar />
         <TaskList />
-        <NewTaskSection />
+        {isInputting ? (
+          <TaskForm onCancel={toggleInput} />
+        ) : (
+          <NewTaskSection onToggle={toggleInput} />
+        )}
         {children}
       </Container>
       <Overlay className="overlay" />

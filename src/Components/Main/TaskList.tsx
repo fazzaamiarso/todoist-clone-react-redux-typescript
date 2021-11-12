@@ -7,6 +7,10 @@ const TaskList: React.FC = () => {
         <Circle />
         <p>Task Name</p>
       </TaskItem>
+      <TaskItem>
+        <Circle />
+        <p>Task Name</p>
+      </TaskItem>
     </Container>
   );
 };
