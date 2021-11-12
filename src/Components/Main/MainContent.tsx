@@ -1,5 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { useTypedSelector } from "../../Store/hooks";
+import { Project } from "../../Store/Task/TaskModel";
 import TaskForm from "../Forms/TaskForm";
 import HeadBar from "./HeadBar";
 import NewTaskSection from "./NewTaskSection";
@@ -7,9 +9,10 @@ import TaskList from "./TaskList";
 
 interface Props {
   children: JSX.Element;
+  project: Project;
 }
 
-const MainContent: React.FC<Props> = ({ children }) => {
+const MainContent: React.FC<Props> = ({ children, project }) => {
   const [isInputting, setIsInputting] = useState(false);
   const toggleInput = () => {
     setIsInputting(!isInputting);
@@ -19,9 +22,9 @@ const MainContent: React.FC<Props> = ({ children }) => {
     <>
       <Container>
         <HeadBar />
-        <TaskList />
+        <TaskList taskList={project.tasks} />
         {isInputting ? (
-          <TaskForm onCancel={toggleInput} />
+          <TaskForm onCancel={toggleInput} projectId={project.id} />
         ) : (
           <NewTaskSection onToggle={toggleInput} />
         )}

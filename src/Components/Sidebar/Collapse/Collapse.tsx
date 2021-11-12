@@ -1,10 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { useTypedSelector } from "../../../Store/hooks";
 import CollapseAction from "./CollapseAction";
 import CollapseContent from "./CollapseContent";
 
 const Collapse: React.FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const { projects: projectList } = useTypedSelector((state) => state.task);
 
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
@@ -12,7 +15,7 @@ const Collapse: React.FC = () => {
   return (
     <Container>
       <CollapseAction onToggle={toggleCollapse} isCollapsed={isCollapsed} />
-      <CollapseContent isCollapsed={isCollapsed} />
+      <CollapseContent isCollapsed={isCollapsed} projectList={projectList} />
     </Container>
   );
 };

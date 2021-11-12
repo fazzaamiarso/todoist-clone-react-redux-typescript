@@ -1,15 +1,18 @@
 import styled from "styled-components";
+import { Project } from "../../../Store/Task/TaskModel";
 import CollapseItem from "./CollapseItem";
 
 interface Props {
   isCollapsed: boolean;
+  projectList: Project[];
 }
 
-const CollapseContent: React.FC<Props> = ({ isCollapsed }) => {
+const CollapseContent: React.FC<Props> = ({ isCollapsed, projectList }) => {
   return (
     <Container isOpen={!isCollapsed}>
-      <CollapseItem />
-      <CollapseItem />
+      {projectList.map((proj) => {
+        return <CollapseItem projectName={proj.name} allTask={proj.tasks} />;
+      })}
     </Container>
   );
 };

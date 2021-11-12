@@ -1,16 +1,21 @@
 import styled from "styled-components";
+import { Project, Task } from "../../Store/Task/TaskModel";
 
-const TaskList: React.FC = () => {
+interface Props {
+  taskList: Task[];
+}
+
+const TaskList: React.FC<Props> = ({ taskList }) => {
   return (
     <Container>
-      <TaskItem>
-        <Circle />
-        <p>Task Name</p>
-      </TaskItem>
-      <TaskItem>
-        <Circle />
-        <p>Task Name</p>
-      </TaskItem>
+      {taskList.map((task) => {
+        return (
+          <TaskItem key={task.id}>
+            <Circle />
+            <p>{task.name}</p>
+          </TaskItem>
+        );
+      })}
     </Container>
   );
 };

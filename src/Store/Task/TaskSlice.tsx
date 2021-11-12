@@ -1,24 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
-
-interface Task {
-  name: string;
-  id: number;
-  projectId: string;
-  completed: boolean;
-  createdAt: Date;
-  dueDate?: Date;
-}
-
-interface Project {
-  name: string;
-  id: string;
-  tasks: Task[];
-}
-
-interface ProjectState {
-  projects: Project[];
-}
+import { ProjectState, Task } from "./TaskModel";
 
 const initialState = {
   projects: [{ name: "inbox", id: "inbox", tasks: [] }],
@@ -42,7 +24,7 @@ export const taskSlice = createSlice({
   },
 });
 
-export const {} = taskSlice.actions;
+export const { addTask } = taskSlice.actions;
 
 export const selectProjects = (state: RootState) => state.task.projects;
 

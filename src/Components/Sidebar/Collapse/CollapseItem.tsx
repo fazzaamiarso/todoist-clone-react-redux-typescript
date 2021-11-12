@@ -1,21 +1,22 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDotCircle, faEllipsisH } from "@fortawesome/free-solid-svg-icons";
+import { Task } from "../../../Store/Task/TaskModel";
 
 interface Props {
   projectName: string;
-  allTask: unknown;
+  allTask: Task[];
 }
 
-const CollapseItem: React.FC = () => {
+const CollapseItem: React.FC<Props> = ({ projectName, allTask }) => {
   return (
     <Container>
       <LeftIndicator>
         <Circle />
       </LeftIndicator>
-      <ProjectName>Welcome!!</ProjectName>
+      <ProjectName>{projectName}</ProjectName>
       <RightIndicator>
-        <TaskCount>7</TaskCount>
+        <TaskCount>{allTask.length > 0 ? allTask.length : ""}</TaskCount>
         <ProjectButton>
           <FontAwesomeIcon icon={faEllipsisH} />
         </ProjectButton>
