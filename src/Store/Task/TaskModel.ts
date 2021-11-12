@@ -15,4 +15,5 @@ export interface Project {
 
 export interface ProjectState {
   projects: Project[];
+  inbox: { name: "inbox"; id: "inbox"; tasks: Task[] };
 }

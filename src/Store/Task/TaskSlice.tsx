@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
-import { ProjectState, Task } from "./TaskModel";
+import { Project, ProjectState, Task } from "./TaskModel";
 
-const initialState = {
-  projects: [{ name: "inbox", id: "inbox", tasks: [] }],
-} as ProjectState;
+const initialState: ProjectState = {
+  projects: [],
+  inbox: { name: "inbox", id: "inbox", tasks: [] },
+};
 
 export const taskSlice = createSlice({
   name: "task",
@@ -15,11 +16,18 @@ export const taskSlice = createSlice({
         proj.id === action.payload.projectId;
       });
       if (findProjectIdx === -1) {
-        const inbox = state.projects.find((proj) => proj.id === "inbox");
-        if (inbox === undefined) return;
+        const inbox = state.inbox;
         const newTask = { ...action.payload, projectId: "inbox" };
         inbox.tasks = [...inbox.tasks, newTask];
       }
+    },
+    addProject: (state, action: PayloadAction<Project["name"]>) => {
+      const newProject = {
+        name: action.payload,
+        id: action.payload,
+        tasks: [],
+      } as Project;
+      state.projects = [...state.projects, newProject];
     },
   },
 });
