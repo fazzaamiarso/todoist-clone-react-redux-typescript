@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { faChevronRight, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState } from "react";
+import ProjectForm from "../../Forms/ProjectForm";
 
 interface Props {
   onToggle: () => void;
@@ -9,20 +11,29 @@ interface Props {
 type CollapseBtn = { isOpen: boolean };
 
 const CollapseAction: React.FC<Props> = ({ onToggle, isCollapsed }) => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const toggleProjectModal = () => {
+    setModalIsOpen(!modalIsOpen);
+  };
+
   const toggleCollapse = () => {
     onToggle();
   };
 
   return (
-    <Container>
-      <CollapseButton onClick={toggleCollapse} isOpen={!isCollapsed}>
-        <FontAwesomeIcon icon={faChevronRight} className="icon" />
-        <span>Projects</span>
-      </CollapseButton>
-      <AddButton>
-        <FontAwesomeIcon icon={faPlus} className="icon" />
-      </AddButton>
-    </Container>
+    <>
+      <Container>
+        <CollapseButton onClick={toggleCollapse} isOpen={!isCollapsed}>
+          <FontAwesomeIcon icon={faChevronRight} className="icon" />
+          <span>Projects</span>
+        </CollapseButton>
+        <AddButton onClick={toggleProjectModal}>
+          <FontAwesomeIcon icon={faPlus} className="icon" />
+        </AddButton>
+      </Container>
+      {modalIsOpen && <ProjectForm onClose={toggleProjectModal} />}
+    </>
   );
 };
 

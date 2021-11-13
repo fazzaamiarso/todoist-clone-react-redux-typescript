@@ -21,7 +21,7 @@ export const taskSlice = createSlice({
         inbox.tasks = [...inbox.tasks, newTask];
       }
     },
-    addProject: (state, action: PayloadAction<Project["name"]>) => {
+    addNewProject: (state, action: PayloadAction<Project["name"]>) => {
       const newProject = {
         name: action.payload,
         id: action.payload,
@@ -32,7 +32,7 @@ export const taskSlice = createSlice({
   },
 });
 
-export const { addTask } = taskSlice.actions;
+export const { addTask, addNewProject } = taskSlice.actions;
 
 export const selectProjects = (state: RootState) => state.task.projects;
 

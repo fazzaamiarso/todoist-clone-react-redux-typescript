@@ -2,12 +2,16 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSlidersH } from "@fortawesome/free-solid-svg-icons";
 
-const HeadBar: React.FC = () => {
+interface Props {
+  projectName?: string;
+}
+
+const HeadBar: React.FC<Props> = ({ projectName = "Project Title" }) => {
   return (
     <Container>
       <LeftAction>
         <Title>
-          <span>Project Title</span>
+          <span>{projectName}</span>
         </Title>
       </LeftAction>
       <RightAction>
@@ -25,7 +29,9 @@ const Container = styled.header`
   align-items: center;
   gap: 1rem;
 `;
-const Title = styled.h1``;
+const Title = styled.h1`
+  text-transform: capitalize;
+`;
 const LeftAction = styled.div``;
 const RightAction = styled.div`
   margin-left: auto;
