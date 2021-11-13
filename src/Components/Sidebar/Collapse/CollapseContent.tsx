@@ -11,7 +11,13 @@ const CollapseContent: React.FC<Props> = ({ isCollapsed, projectList }) => {
   return (
     <Container isOpen={!isCollapsed}>
       {projectList.map((proj) => {
-        return <CollapseItem projectName={proj.name} allTask={proj.tasks} />;
+        return (
+          <CollapseItem
+            projectName={proj.name}
+            projectId={proj.id}
+            allTask={proj.tasks}
+          />
+        );
       })}
     </Container>
   );

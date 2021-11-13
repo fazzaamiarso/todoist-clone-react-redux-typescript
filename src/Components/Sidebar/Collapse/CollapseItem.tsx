@@ -2,15 +2,23 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDotCircle, faEllipsisH } from "@fortawesome/free-solid-svg-icons";
 import { Task } from "../../../Store/Task/TaskModel";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   projectName: string;
+  projectId: string;
   allTask: Task[];
 }
 
-const CollapseItem: React.FC<Props> = ({ projectName, allTask }) => {
+const CollapseItem: React.FC<Props> = ({ projectName, allTask, projectId }) => {
+  let navigate = useNavigate();
+
+  const goToPage = () => {
+    navigate(`/project/${projectId}`);
+  };
+
   return (
-    <Container>
+    <Container onClick={goToPage}>
       <LeftIndicator>
         <Circle />
       </LeftIndicator>
