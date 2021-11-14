@@ -16,7 +16,7 @@ const TaskForm: React.FC<Props> = ({ onCancel, projectId }) => {
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onCancel();
-    if (taskInput === "") return alert("hi");
+    if (taskInput === "") return alert("Please Input something");
 
     dispatch(
       addTask({

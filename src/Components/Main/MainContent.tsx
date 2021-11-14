@@ -1,6 +1,5 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { useTypedSelector } from "../../Store/hooks";
 import { Project } from "../../Store/Task/TaskModel";
 import TaskForm from "../Forms/TaskForm";
 import HeadBar from "./HeadBar";
