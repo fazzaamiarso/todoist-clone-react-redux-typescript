@@ -2,40 +2,57 @@ import styled from "styled-components";
 import { faHome, faBars, faPlus } from "@fortawesome/free-solid-svg-icons";
 import Icon from "../Helpers/Icon";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import QuickAddModal from "./QuickAddModal";
 
 interface Props {
   onToggle: () => void;
 }
 
 const Header: React.FC<Props> = ({ onToggle }) => {
+  const [quickAddIsOpen, setQuickAddIsOpen] = useState(false);
+
   let navigate = useNavigate();
   const openBarHandler = () => {
     onToggle();
   };
 
+  const toggleQuickAddHandler = () => {
+    setQuickAddIsOpen(!quickAddIsOpen);
+  };
+
   const goToHomeHandler = () => {
-    navigate("/");
+    navigate("/inbox");
   };
 
   return (
-    <Container>
-      <BarSection>
-        <HeadingIcon
-          iconSource={faBars}
-          className="icon__wrapper"
-          onClick={openBarHandler}
-        />
-        <HeadingIcon
-          iconSource={faHome}
-          className="icon__wrapper"
-          onClick={goToHomeHandler}
-        />
-      </BarSection>
-      <BarSection>
-        <HeadingIcon iconSource={faPlus} className="icon__wrapper" />
-        <Avatar />
-      </BarSection>
-    </Container>
+    <>
+      {quickAddIsOpen && (
+        <QuickAddModal onToggleModal={toggleQuickAddHandler} />
+      )}
+      <Container>
+        <BarSection>
+          <HeadingIcon
+            iconSource={faBars}
+            className="icon__wrapper"
+            onClick={openBarHandler}
+          />
+          <HeadingIcon
+            iconSource={faHome}
+            className="icon__wrapper"
+            onClick={goToHomeHandler}
+          />
+        </BarSection>
+        <BarSection>
+          <HeadingIcon
+            iconSource={faPlus}
+            className="icon__wrapper"
+            onClick={toggleQuickAddHandler}
+          />
+          <Avatar />
+        </BarSection>
+      </Container>
+    </>
   );
 };
 

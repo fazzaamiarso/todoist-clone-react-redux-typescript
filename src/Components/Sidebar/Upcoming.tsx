@@ -14,7 +14,7 @@ const Upcoming: React.FC = () => {
         <NavItem>
           <NavLink
             className={({ isActive }) => (isActive ? " activated" : "inactive")}
-            to="/inbox"
+            to="app/inbox"
           >
             <FontAwesomeIcon icon={faInbox} /> Inbox
           </NavLink>
@@ -22,7 +22,7 @@ const Upcoming: React.FC = () => {
         <NavItem>
           <NavLink
             className={({ isActive }) => (isActive ? " activated" : "inactive")}
-            to="/today"
+            to="app/today"
           >
             <FontAwesomeIcon icon={faCalendarDay} />
             Today
@@ -31,7 +31,7 @@ const Upcoming: React.FC = () => {
         <NavItem>
           <NavLink
             className={({ isActive }) => (isActive ? " activated" : "inactive")}
-            to="/upcoming"
+            to="app/upcoming"
           >
             <FontAwesomeIcon icon={faCalendar} />
             Upcoming

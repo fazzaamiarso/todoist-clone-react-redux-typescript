@@ -9,17 +9,22 @@ interface Props {
 
 const CollapseContent: React.FC<Props> = ({ isCollapsed, projectList }) => {
   return (
-    <Container isOpen={!isCollapsed}>
-      {projectList.map((proj) => {
-        return (
-          <CollapseItem
-            projectName={proj.name}
-            projectId={proj.id}
-            allTask={proj.tasks}
-          />
-        );
-      })}
-    </Container>
+    <>
+      <Container isOpen={!isCollapsed}>
+        {projectList.length === 0 && (
+          <p>Your list of projects will show up here</p>
+        )}
+        {projectList.map((proj) => {
+          return (
+            <CollapseItem
+              projectName={proj.name}
+              projectId={proj.id}
+              allTask={proj.tasks}
+            />
+          );
+        })}
+      </Container>
+    </>
   );
 };
 

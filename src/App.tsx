@@ -9,10 +9,7 @@ const App: React.FC = () => {
     <Navigation>
       <>
         <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
-        <Routes>
-          <Route path="/inbox" element={<Inbox />} />
+          <Route path="/app/inbox" element={<Inbox />} />
         </Routes>
         <Routes>
           <Route path="/project/:projectId" element={<Project />} />
