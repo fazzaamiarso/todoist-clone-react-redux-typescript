@@ -5,6 +5,7 @@ import { Task } from "../../../Store/Task/TaskModel";
 import { useNavigate } from "react-router-dom";
 import useToggle from "../../../Hooks/useToggle";
 import ProjectDropDown from "../../Shared/ProjectDropDown";
+import ProjectForm from "../../Forms/ProjectForm";
 
 interface Props {
   projectName: string;
@@ -14,6 +15,7 @@ interface Props {
 
 const CollapseItem: React.FC<Props> = ({ projectName, allTask, projectId }) => {
   const [modalIsOpen, toggleModal] = useToggle();
+  const [isEditing, editHandler] = useToggle();
 
   let navigate = useNavigate();
 
@@ -36,8 +38,17 @@ const CollapseItem: React.FC<Props> = ({ projectName, allTask, projectId }) => {
       {modalIsOpen && (
         <ProjectDropDown
           onToggleModal={toggleModal}
+          onToggleEdit={editHandler}
           projectId={projectId}
           projectName={projectName}
+        />
+      )}
+      {isEditing && (
+        <ProjectForm
+          onClose={editHandler}
+          projectName={projectName}
+          projectId={projectId}
+          isEditForm
         />
       )}
     </Container>

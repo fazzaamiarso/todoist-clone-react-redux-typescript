@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSlidersH, faEllipsisH } from "@fortawesome/free-solid-svg-icons";
 import ProjectDropDown from "../Shared/ProjectDropDown";
 import { useState } from "react";
+import useToggle from "../../Hooks/useToggle";
+import ProjectForm from "../Forms/ProjectForm";
 
 interface Props {
   projectName: string;
@@ -11,6 +13,7 @@ interface Props {
 
 const HeadBar: React.FC<Props> = ({ projectName, projectId }) => {
   const [editIsOpen, setEditIsOpen] = useState(false);
+  const [isEditingProject, toggleProjectEdit] = useToggle();
 
   const toggleEdit = () => {
     setEditIsOpen(!editIsOpen);
@@ -35,8 +38,17 @@ const HeadBar: React.FC<Props> = ({ projectName, projectId }) => {
       {editIsOpen && (
         <ProjectDropDown
           onToggleModal={toggleEdit}
+          onToggleEdit={toggleProjectEdit}
           projectId={projectId}
           projectName={projectName}
+        />
+      )}
+      {isEditingProject && (
+        <ProjectForm
+          onClose={toggleProjectEdit}
+          projectName={projectName}
+          projectId={projectId}
+          isEditForm
         />
       )}
     </Container>

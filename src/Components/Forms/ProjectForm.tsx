@@ -1,16 +1,23 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useTypedDispatch } from "../../Store/hooks";
-import { addTask, addNewProject } from "../../Store/Task/TaskSlice";
+import { addNewProject, editProject } from "../../Store/Task/TaskSlice";
 import ModalBase from "../Shared/ModalBase";
 import FormButton from "./FormButton";
 
 interface Props {
-  projectName?: string;
+  projectName: string;
+  projectId: string;
   onClose: () => void;
+  isEditForm?: boolean;
 }
 
-const ProjectForm: React.FC<Props> = ({ onClose, projectName }) => {
+const ProjectForm: React.FC<Props> = ({
+  onClose,
+  projectName,
+  isEditForm,
+  projectId,
+}) => {
   const dispatch = useTypedDispatch();
   const [projectInput, setProjectInput] = useState(projectName || "");
 
@@ -18,21 +25,20 @@ const ProjectForm: React.FC<Props> = ({ onClose, projectName }) => {
     e.preventDefault();
     onClose();
     if (projectInput === "") return;
-
+    if (isEditForm) {
+      return dispatch(editProject({ name: projectInput, id: projectId }));
+    }
     dispatch(addNewProject(projectInput));
   };
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setProjectInput(e.target.value);
   };
-  const closeModalHandler = () => {
-    onClose();
-  };
 
   return (
     <ModalBase>
       <Form action="#" onSubmit={submitHandler}>
-        <h2>Add Project</h2>
+        <h2>{isEditForm ? "Edit Project" : "Add Project"} </h2>
         <TaskInput
           type="text"
           placeholder="Project Name"
@@ -44,10 +50,10 @@ const ProjectForm: React.FC<Props> = ({ onClose, projectName }) => {
             content="Cancel"
             BtnType="secondary"
             disabled={false}
-            onClick={closeModalHandler}
+            onClick={onClose}
           />
           <FormButton
-            content="Add"
+            content={isEditForm ? "Save" : "Add"}
             BtnType="main"
             disabled={false}
             type="submit"

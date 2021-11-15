@@ -9,6 +9,7 @@ import Modal from "./EditDropDownModal";
 
 interface Props {
   onToggleModal: () => void;
+  onToggleEdit: () => void;
   projectId: string;
   projectName: string;
 }
@@ -17,11 +18,10 @@ const ProjectDropDown: React.FC<Props> = ({
   onToggleModal,
   projectId,
   projectName,
+  onToggleEdit,
 }) => {
   let navigate = useNavigate();
   const dispatch = useTypedDispatch();
-
-  const [isEditing, editHandler] = useToggle();
 
   const deleteProjectHandler = () => {
     navigate("/app/inbox", { replace: true });
@@ -30,12 +30,9 @@ const ProjectDropDown: React.FC<Props> = ({
 
   return (
     <>
-      {isEditing && (
-        <ProjectForm projectName={projectName} onClose={editHandler} />
-      )}
       <Modal onCancel={onToggleModal}>
         <>
-          <Item actionText="Edit project" onEditAction={editHandler} />
+          <Item actionText="Edit project" onEditAction={onToggleEdit} />
           <Item
             actionText="Delete project"
             onEditAction={deleteProjectHandler}

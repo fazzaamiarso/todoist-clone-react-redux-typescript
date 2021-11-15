@@ -41,10 +41,18 @@ export const taskSlice = createSlice({
         (proj) => proj.id !== action.payload
       );
     },
+    editProject: (state, action: PayloadAction<Omit<Project, "tasks">>) => {
+      const editedProject = state.projects.find(
+        (proj) => proj.id === action.payload.id
+      );
+      if (editedProject === undefined) return;
+      editedProject.name = action.payload.name;
+    },
   },
 });
 
-export const { addTask, addNewProject, deleteProject } = taskSlice.actions;
+export const { addTask, addNewProject, deleteProject, editProject } =
+  taskSlice.actions;
 
 export const selectProjects = (state: RootState) => state.task.projects;
 
