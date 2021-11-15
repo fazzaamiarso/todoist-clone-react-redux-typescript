@@ -6,7 +6,7 @@ import FormButton from "./FormButton";
 
 interface Props {
   projectId: string;
-  taskId: number;
+  taskId?: number;
   onCancel: () => void;
   taskName?: string;
   isEditForm?: boolean;
@@ -26,7 +26,7 @@ const TaskForm: React.FC<Props> = ({
     e.preventDefault();
     onCancel();
     if (taskInput === "") return alert("Please Input something");
-    if (isEditForm) {
+    if (isEditForm && taskId !== undefined) {
       return await dispatch(
         editTask({ name: taskInput, id: taskId, projectId })
       );

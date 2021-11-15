@@ -32,9 +32,9 @@ export const taskSlice = createSlice({
       state,
       action: PayloadAction<Pick<Task, "id" | "projectId">>
     ) => {
-      const findProject = state.projects.find(
-        (proj) => proj.id === action.payload.projectId
-      ) as Project;
+      const findProject =
+        state.projects.find((proj) => proj.id === action.payload.projectId) ??
+        state.inbox;
       findProject.tasks = findProject.tasks.filter(
         (task) => task.id !== action.payload.id
       );
@@ -43,13 +43,14 @@ export const taskSlice = createSlice({
       state,
       action: PayloadAction<Pick<Task, "id" | "projectId" | "name">>
     ) => {
-      const findProject = state.projects.find(
-        (proj) => proj.id === action.payload.projectId
-      ) as Project;
+      const findProject =
+        state.projects.find((proj) => proj.id === action.payload.projectId) ??
+        state.inbox;
+
       const editedTask = findProject.tasks.find(
         (task) => task.id === action.payload.id
       );
-      if (findProject === undefined || editedTask === undefined) return;
+      if (editedTask === undefined) return;
       editedTask.name = action.payload.name;
     },
     addNewProject: (state, action: PayloadAction<Project["name"]>) => {
