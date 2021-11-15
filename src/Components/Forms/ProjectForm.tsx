@@ -6,12 +6,13 @@ import ModalBase from "../Shared/ModalBase";
 import FormButton from "./FormButton";
 
 interface Props {
+  projectName?: string;
   onClose: () => void;
 }
 
-const ProjectForm: React.FC<Props> = ({ onClose }) => {
+const ProjectForm: React.FC<Props> = ({ onClose, projectName }) => {
   const dispatch = useTypedDispatch();
-  const [projectInput, setProjectInput] = useState("");
+  const [projectInput, setProjectInput] = useState(projectName || "");
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

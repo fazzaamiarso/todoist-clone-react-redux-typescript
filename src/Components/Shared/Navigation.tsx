@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
 import Header from "../Header/Header";
-import MainContent from "../Main/MainContent";
 import SideBar from "../Sidebar/SideBar";
 
 interface Props {

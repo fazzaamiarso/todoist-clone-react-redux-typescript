@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDotCircle, faEllipsisH } from "@fortawesome/free-solid-svg-icons";
 import { Task } from "../../../Store/Task/TaskModel";
 import { useNavigate } from "react-router-dom";
+import useToggle from "../../../Hooks/useToggle";
+import ProjectDropDown from "../../Shared/ProjectDropDown";
 
 interface Props {
   projectName: string;
@@ -11,6 +13,8 @@ interface Props {
 }
 
 const CollapseItem: React.FC<Props> = ({ projectName, allTask, projectId }) => {
+  const [modalIsOpen, toggleModal] = useToggle();
+
   let navigate = useNavigate();
 
   const goToPage = () => {
@@ -25,10 +29,17 @@ const CollapseItem: React.FC<Props> = ({ projectName, allTask, projectId }) => {
       <ProjectName>{projectName}</ProjectName>
       <RightIndicator>
         <TaskCount>{allTask.length > 0 ? allTask.length : ""}</TaskCount>
-        <ProjectButton>
+        <ProjectButton onClick={toggleModal}>
           <FontAwesomeIcon icon={faEllipsisH} />
         </ProjectButton>
       </RightIndicator>
+      {modalIsOpen && (
+        <ProjectDropDown
+          onToggleModal={toggleModal}
+          projectId={projectId}
+          projectName={projectName}
+        />
+      )}
     </Container>
   );
 };
@@ -43,6 +54,7 @@ const ProjectButton = styled.button`
 `;
 
 const Container = styled.li`
+  position: relative;
   display: flex;
   align-items: center;
   gap: 1rem;

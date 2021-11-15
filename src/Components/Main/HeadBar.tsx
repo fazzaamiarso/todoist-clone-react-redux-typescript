@@ -33,7 +33,11 @@ const HeadBar: React.FC<Props> = ({ projectName, projectId }) => {
         </View>
       </RightAction>
       {editIsOpen && (
-        <ProjectDropDown onToggleModal={toggleEdit} projectId={projectId} />
+        <ProjectDropDown
+          onToggleModal={toggleEdit}
+          projectId={projectId}
+          projectName={projectName}
+        />
       )}
     </Container>
   );
@@ -45,9 +49,7 @@ const Container = styled.header`
   align-items: center;
   gap: 1rem;
 `;
-const Title = styled.h1`
-  text-transform: capitalize;
-`;
+const Title = styled.h1``;
 const LeftAction = styled.div``;
 const RightAction = styled.div`
   display: flex;

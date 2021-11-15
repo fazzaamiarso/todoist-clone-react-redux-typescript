@@ -37,10 +37,9 @@ export const taskSlice = createSlice({
       state.projects = [...state.projects, newProject];
     },
     deleteProject: (state, action: PayloadAction<Project["id"]>) => {
-      const findProjectIdx = state.projects.findIndex((proj) => {
-        return proj.id === action.payload;
-      });
-      state.projects.splice(findProjectIdx, 1);
+      state.projects = state.projects.filter(
+        (proj) => proj.id !== action.payload
+      );
     },
   },
 });
