@@ -12,21 +12,20 @@ export const taskSlice = createSlice({
   initialState,
   reducers: {
     addTask: (state, action: PayloadAction<Task>) => {
-      const findProjectIdx = state.projects.findIndex((proj) => {
+      const findProject = state.projects.find((proj) => {
         return proj.id === action.payload.projectId;
       });
-      if (findProjectIdx === -1) {
+      if (findProject === undefined) {
         const inbox = state.inbox;
         const newTask = { ...action.payload, projectId: "inbox" };
         inbox.tasks = [...inbox.tasks, newTask];
       }
-      if (findProjectIdx >= 0) {
-        const project = state.projects[findProjectIdx];
+      if (findProject) {
         const newTask = {
           ...action.payload,
           projectId: action.payload.projectId,
         };
-        project.tasks = [...project.tasks, newTask];
+        findProject.tasks = [...findProject.tasks, newTask];
       }
     },
     addNewProject: (state, action: PayloadAction<Project["name"]>) => {
@@ -37,10 +36,16 @@ export const taskSlice = createSlice({
       } as Project;
       state.projects = [...state.projects, newProject];
     },
+    deleteProject: (state, action: PayloadAction<Project["id"]>) => {
+      const findProjectIdx = state.projects.findIndex((proj) => {
+        return proj.id === action.payload;
+      });
+      state.projects.splice(findProjectIdx, 1);
+    },
   },
 });
 
-export const { addTask, addNewProject } = taskSlice.actions;
+export const { addTask, addNewProject, deleteProject } = taskSlice.actions;
 
 export const selectProjects = (state: RootState) => state.task.projects;
 

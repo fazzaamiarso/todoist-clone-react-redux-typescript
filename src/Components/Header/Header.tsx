@@ -22,7 +22,7 @@ const Header: React.FC<Props> = ({ onToggle }) => {
   };
 
   const goToHomeHandler = () => {
-    navigate("/inbox");
+    navigate("app/inbox");
   };
 
   return (

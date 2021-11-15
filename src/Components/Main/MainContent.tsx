@@ -20,7 +20,7 @@ const MainContent: React.FC<Props> = ({ children, project }) => {
   return (
     <>
       <Container>
-        <HeadBar projectName={project.name} />
+        <HeadBar projectName={project.name} projectId={project.id} />
         <TaskList taskList={project.tasks} />
         {isInputting ? (
           <TaskForm onCancel={toggleInput} projectId={project.id} />

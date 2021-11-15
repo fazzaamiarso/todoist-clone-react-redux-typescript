@@ -1,12 +1,21 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSlidersH } from "@fortawesome/free-solid-svg-icons";
+import { faSlidersH, faEllipsisH } from "@fortawesome/free-solid-svg-icons";
+import ProjectDropDown from "../Shared/ProjectDropDown";
+import { useState } from "react";
 
 interface Props {
-  projectName?: string;
+  projectName: string;
+  projectId: string;
 }
 
-const HeadBar: React.FC<Props> = ({ projectName = "Project Title" }) => {
+const HeadBar: React.FC<Props> = ({ projectName, projectId }) => {
+  const [editIsOpen, setEditIsOpen] = useState(false);
+
+  const toggleEdit = () => {
+    setEditIsOpen(!editIsOpen);
+  };
+
   return (
     <Container>
       <LeftAction>
@@ -19,12 +28,19 @@ const HeadBar: React.FC<Props> = ({ projectName = "Project Title" }) => {
           <FontAwesomeIcon icon={faSlidersH} />
           <span>View</span>
         </View>
+        <View onClick={toggleEdit}>
+          <FontAwesomeIcon icon={faEllipsisH} size="2x" />
+        </View>
       </RightAction>
+      {editIsOpen && (
+        <ProjectDropDown onToggleModal={toggleEdit} projectId={projectId} />
+      )}
     </Container>
   );
 };
 
 const Container = styled.header`
+  position: relative;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -34,6 +50,10 @@ const Title = styled.h1`
 `;
 const LeftAction = styled.div``;
 const RightAction = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
   margin-left: auto;
 `;
 const View = styled.button`
