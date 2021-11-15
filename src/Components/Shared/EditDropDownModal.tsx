@@ -10,6 +10,7 @@ const EditDropDownModal: React.FC<ModalProps> = ({ children, onCancel }) => {
 };
 
 const Modal = styled.div`
+  width: max-content;
   position: absolute;
   z-index: 101;
   bottom: -5rem;

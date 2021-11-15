@@ -1,32 +1,48 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useTypedDispatch } from "../../Store/hooks";
-import { addTask } from "../../Store/Task/TaskSlice";
+import { addTask, editTask } from "../../Store/Task/TaskSlice";
 import FormButton from "./FormButton";
 
 interface Props {
   projectId: string;
+  taskId: number;
   onCancel: () => void;
+  taskName?: string;
+  isEditForm?: boolean;
 }
 
-const TaskForm: React.FC<Props> = ({ onCancel, projectId }) => {
+const TaskForm: React.FC<Props> = ({
+  onCancel,
+  projectId,
+  taskName,
+  isEditForm,
+  taskId,
+}) => {
   const dispatch = useTypedDispatch();
-  const [taskInput, setTaskInput] = useState("");
+  const [taskInput, setTaskInput] = useState(taskName || "");
 
-  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onCancel();
     if (taskInput === "") return alert("Please Input something");
+    if (isEditForm) {
+      return await dispatch(
+        editTask({ name: taskInput, id: taskId, projectId })
+      );
+    }
 
-    dispatch(
-      addTask({
-        name: taskInput,
-        id: Math.random(),
-        projectId,
-        completed: false,
-        createdAt: new Date(),
-      })
-    );
+    if (!isEditForm) {
+      await dispatch(
+        addTask({
+          name: taskInput,
+          id: Math.random(),
+          projectId,
+          completed: false,
+          createdAt: new Date(),
+        })
+      );
+    }
   };
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,7 +59,7 @@ const TaskForm: React.FC<Props> = ({ onCancel, projectId }) => {
       />
       <FormAction>
         <FormButton
-          content="Add Task"
+          content={isEditForm ? "Save" : "Add Task"}
           BtnType="main"
           disabled={false}
           type="submit"
